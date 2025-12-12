@@ -18,7 +18,7 @@
 
 \section{Introduction}
 
-\texttt{aten.sty} provides a simple and lightweight solution to make your LaTeX documents prettier.
+\texttt{aten.sty} provides a simple and lightweight solution to make your LaTeX documents prettier. 
 
 \subsection{How to Use}
 
@@ -42,15 +42,27 @@ Prepend the following to your tex file:
 \newpage
 
 % Content goes here
+% \input{yourfile.tex} \newpage
+% ...
 
 \end{document}
 \end{verbatim}
 
 \subsection{Environments}
 
-These are what the environments look like. You can change the colors by directly editing the sty file.
+These are what the environments look like. There's also Lemma, Corollary, and Observation.
+
+\begin{simpledef}[Simple Definition]
+This is the simpledef environment.
+\end{simpledef}
+
+\begin{simplethm}[Simple Theorem]
+This is the simplethm environment.
+\end{simplethm}
+
+
 \begin{definition}
-This is a definition.
+This is the definition environment.
 \end{definition}
 
 \begin{theorem}[A Theorem] \label{thm:oddposintdivby5}
@@ -81,10 +93,10 @@ This example has more than one line.
 
 \subsection{More Features}
 
-Links are supported. \ref{thm:oddposintdivby5} can either be proven through induction on the odd positive integers, or through a modular arithmetic argument.
+Links are supported. \autoref{thm:oddposintdivby5} can either be proven through induction on the odd positive integers, or through a modular arithmetic argument.
 
 \section{Conclusion}
 
-Last updated 2025-05-23.
+Last updated \date{\today}.
 
 \end{document}

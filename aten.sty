@@ -1,30 +1,7 @@
 % aten.sty
 
-% MIT License
-% 
-% Copyright (c) 2025 atentwo
-% 
-% Permission is hereby granted, free of charge, to any person obtaining a copy
-% of this software and associated documentation files (the "Software"), to deal
-% in the Software without restriction, including without limitation the rights
-% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-% copies of the Software, and to permit persons to whom the Software is
-% furnished to do so, subject to the following conditions:
-% 
-% The above copyright notice and this permission notice shall be included in all
-% copies or substantial portions of the Software.
-% 
-% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-% SOFTWARE.
-
-
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{aten}[2025/05/22 Custom LaTeX Style]
+\ProvidesPackage{aten}[2025/12/11 Custom LaTeX Style]
 
 % Core packages
 \usepackage{amsmath, amsthm, amssymb}
@@ -34,7 +11,14 @@
 \usepackage{fancyhdr}
 \usepackage{geometry}
 \usepackage{hyperref}
-\usepackage{tocbibind} % Add ToC, LoF, LoT to ToC
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage[nottoc]{tocbibind} % Add ToC, LoF, LoT to ToC
+\usepackage[sfdefault]{noto-sans}
+
+\setlength{\parindent}{0pt} % DISALES AUTO-INDENTING
+\setlength{\parskip}{0.5em plus 0.5em minus 0.2em}
 
 % Geometry: Margin customization
 \geometry{top=3cm, bottom=3cm, left=3cm, right=3cm}
@@ -43,15 +27,21 @@
 \pagestyle{fancy}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{13.6pt}
+\addtolength{\topmargin}{-1.6pt}
 
 % Footer setup
 \fancyfoot[C]{\thepage}
 \renewcommand{\footrulewidth}{0pt}
 
+% Colors
+\definecolor{crimson}{HTML}{BF0040}
+\definecolor{airfblue}{HTML}{0073C0}
+
 % Hyperref setup for clickable links
 \hypersetup{
     colorlinks=true,
-    linkcolor=blue,
+    linkcolor=airfblue,
     citecolor=green,
     urlcolor=cyan,
 }
@@ -62,45 +52,74 @@
 \numberwithin{table}{section}
 \setcounter{tocdepth}{2}
 
+% Section setup
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {\color{crimson}\S\thesection}
+  {0.5em}
+  {}
+
 % ---- Custom Styles for Theorem Environments ----
 \tcbset{
   commonstyle/.style={
-    arc=0mm, outer arc=0mm,
-    colframe=gray!50!black,
-    boxrule=0.5pt,
-    colback=white,
-    coltitle=white,
-    colbacktitle=gray!50!black,
-    boxsep=4pt,
-    left=0pt, right=0pt, top=0.1em, bottom=0.1em,
-    fonttitle=\bfseries,
-    fontupper=\color{black},
-    breakable,
-    before skip=0.5em,
-    after skip=0.5em,
-    enhanced,
+%    arc=0mm, outer arc=0mm,
+%    colframe=gray!50!black,
+%    boxrule=0.5pt,
+%    colback=white,
+%    coltitle=white,
+%    colbacktitle=gray!50!black,
+%    boxsep=4pt,
+%    left=0pt, right=0pt, top=0.1em, bottom=0.1em,
+%    fonttitle=\bfseries,
+%    fontupper=\color{black},
+%    breakable,
+%    before skip=0.5em,
+%    after skip=0.5em,
+%    enhanced,
   },
-  theoremstyle/.style={commonstyle, colbacktitle=green!60!black},
+  theoremstyle/.style={commonstyle, colbacktitle=green!30!black},
   definitionstyle/.style={commonstyle, colbacktitle=brown!60!black},
   remarkstyle/.style={commonstyle, colbacktitle=orange!80!black},
   examplestyle/.style={commonstyle, colbacktitle=purple!60!black}
+  % problemstyle/.style={commonstyle, colbacktitle=white!60!black}
 }
 
-% ---- Theorem Environments as Styled Boxes ----
+% ---- Theorem Environments ----
 
 % Master theorem counter, reset every section
 \newtheorem{theorem}{Theorem}[section]
+
+
+% -- Upright --
+\newtheoremstyle{upright}
+  {\parskip}
+  {}
+  {\upshape}
+  {}
+  {\bfseries}
+  {.}
+  {.5em}
+  {}
+
+\theoremstyle{upright}
+\newtheorem{simplethm}[theorem]{Theorem}
+\newtheorem{simpledef}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{lemma}[theorem]{Lemma}
 
 % Other environments share the theorem counter
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Problem}
 
 % Numbering format
 \renewcommand{\thetheorem}{\thesection.\arabic{theorem}}
 \renewcommand{\thedefinition}{\thetheorem}
 \renewcommand{\theremark}{\thetheorem}
 \renewcommand{\theexample}{\thetheorem}
+\renewcommand{\theproblem}{\thetheorem}
 
 \renewenvironment{theorem}[1][]{%
   \refstepcounter{theorem}%
@@ -114,12 +133,17 @@
 
 \renewenvironment{remark}[1][]{%
   \refstepcounter{theorem}%
-  \begin{tcolorbox}[examplestyle, title={Remark \thetheorem\ifx\relax#1\relax\else~\normalfont\small(#1\small)\fi}]%
+  \begin{tcolorbox}[remarkstyle, title={Remark \thetheorem\ifx\relax#1\relax\else~\normalfont\small(#1\small)\fi}]%
 
 }{\end{tcolorbox}}
 
 \renewenvironment{example}[1][]{%
   \refstepcounter{theorem}%
   \begin{tcolorbox}[examplestyle, title={Example \thetheorem\ifx\relax#1\relax\else~\normalfont\small(#1\small)\fi}]%
+}{\end{tcolorbox}}
+
+\renewenvironment{problem}[1][]{%
+  \refstepcounter{theorem}%
+  \begin{tcolorbox}[title={Problem \thetheorem\ifx\relax#1\relax\else~\normalfont\small(#1\small)\fi}]%
 }{\end{tcolorbox}}
 
