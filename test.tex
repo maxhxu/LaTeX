@@ -52,18 +52,24 @@ Prepend the following to your tex file:
 
 These are what the environments look like. There's also Lemma, Corollary, and Observation.
 
-\begin{simpledef}[Simple Definition]
-This is the simpledef environment.
-\end{simpledef}
+\begin{definition}[Definition]
+This is the definition environment.
+\end{definition}
+
+Multiline definitions should use definitionbox instead.
+
+\begin{definitionbox}
+This is the definition box environment.
+
+\begin{itemize}
+\item This is a multiline definition
+\item There are many points
+\end{itemize}
+\end{definitionbox}
 
 \begin{simplethm}[Simple Theorem]
 This is the simplethm environment.
 \end{simplethm}
-
-
-\begin{definition}
-This is the definition environment.
-\end{definition}
 
 \begin{theorem}[A Theorem] \label{thm:oddposintdivby5}
 For odd, positive integers $k$, $1 + 4^k$ is divisible by 5. 
@@ -81,8 +87,9 @@ For odd \( k \), \( (-1)^k = -1 \), so:
 \]
 Hence, \( 1 + 4^k \) is divisible by 5 for all odd \( k \in \mathbb{Z}^+ \).
 \end{proof}
+
 \begin{remark}
-This is a remark.
+This is a remark. The proof environment comes from amsthm.
 \end{remark}
 
 \begin{example}[An Example]

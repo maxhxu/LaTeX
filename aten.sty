@@ -79,7 +79,7 @@
   },
   theoremstyle/.style={commonstyle, colbacktitle=green!30!black},
   definitionstyle/.style={commonstyle, colbacktitle=brown!60!black},
-  remarkstyle/.style={commonstyle, colbacktitle=orange!80!black},
+  remarkstyle/.style={commonstyle, colbacktitle=orange!50!black},
   examplestyle/.style={commonstyle, colbacktitle=purple!60!black}
   % problemstyle/.style={commonstyle, colbacktitle=white!60!black}
 }
@@ -103,13 +103,13 @@
 
 \theoremstyle{upright}
 \newtheorem{simplethm}[theorem]{Theorem}
-\newtheorem{simpledef}[theorem]{Definition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{observation}[theorem]{Observation}
 \newtheorem{lemma}[theorem]{Lemma}
 
 % Other environments share the theorem counter
-\newtheorem{definition}[theorem]{Definition}
+\newtheorem{definitionbox}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{example}[theorem]{Example}
 \newtheorem{problem}[theorem]{Problem}
@@ -122,11 +122,11 @@
 \renewcommand{\theproblem}{\thetheorem}
 
 \renewenvironment{theorem}[1][]{%
-  \refstepcounter{theorem}%
+  \refstepcounter{theorem}% % Changed
   \begin{tcolorbox}[theoremstyle, title={Theorem \thetheorem\ifx\relax#1\relax\else~\normalfont\small(#1\small)\fi}]%
 }{\end{tcolorbox}}
 
-\renewenvironment{definition}[1][]{%
+\renewenvironment{definitionbox}[1][]{%
   \refstepcounter{theorem}%
   \begin{tcolorbox}[definitionstyle, title={Definition \thetheorem\ifx\relax#1\relax\else~\normalfont\small(#1\small)\fi}]%
 }{\end{tcolorbox}}
