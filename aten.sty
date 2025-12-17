@@ -17,8 +17,19 @@
 \usepackage[nottoc]{tocbibind} % Add ToC, LoF, LoT to ToC
 \usepackage[sfdefault]{noto-sans}
 
-\setlength{\parindent}{0pt} % DISALES AUTO-INDENTING
-\setlength{\parskip}{0.5em plus 0.5em minus 0.2em}
+% \setlength{\parindent}{0pt} % DISALES AUTO-INDENTING
+% \setlength{\parskip}{0.5em plus 0.5em minus 0.2em}
+
+% Make tags use default font
+\makeatletter
+\def\tagform@#1{\maketag@@@{\textrm{(\ignorespaces#1\unskip\@@italiccorr)}}}
+\makeatother
+
+\usepackage{etoolbox}
+\AtBeginEnvironment{proof}{\vspace*{-\parskip}}
+\AtEndEnvironment{proof}{%
+  \noindent
+}
 
 % Geometry: Margin customization
 \geometry{top=3cm, bottom=3cm, left=3cm, right=3cm}
